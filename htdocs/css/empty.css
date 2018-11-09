@@ -1,0 +1,9 @@
+/*!
+ * An empty stylesheet.
+ *
+ * To use for showing how the website looks when there is no style at all.
+ */
+
+ h1 {
+     border-bottom: none !important;
+ }
