@@ -44,9 +44,14 @@ return [
             "title" => "Validera",
         ],
         [
-            "text" => "Verktyg",
-            "url" => "verktyg",
-            "title" => "Verktyg och möjligheter för utveckling.",
+            "text" => "IP-Plats",
+            "url" => "location",
+            "title" => "IP-location",
+        ],
+        [
+            "text" => "API",
+            "url" => "api",
+            "title" => "API",
         ],
     ],
 ];

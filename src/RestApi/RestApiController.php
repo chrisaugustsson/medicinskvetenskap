@@ -5,6 +5,9 @@ namespace Anax\RestApi;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Anax\IpValidator\Validator;
+use Anax\IpLocation\Ipstack;
+use Anax\IpLocation\Location;
+
 
 /**
  * Style chooser controller loads available stylesheets from a directory and
@@ -14,10 +17,20 @@ class RestApiController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
+
+    public function indexActionGet()
+    {
+        $page = $this->di->get("page");
+        $page->add("anax/api/index");
+
+        return $page->render([
+            "title" => "API Documentation"
+        ]);
+    }
     /**
      * Validates the IP-address and displays the result.
      *
-     * @return object
+     * @return object in json format
      */
     public function ipActionPost() : array
     {
@@ -34,6 +47,38 @@ class RestApiController implements ContainerInjectableInterface
         $json = [
             "message" => $valid[1],
             "ip" => $valid[0]
+        ];
+        return [$json];
+    }
+
+
+    /**
+     * Returns the location of a IP-address if valid.
+     *
+     * @return object in json format
+     */
+    public function ipLocationActionGet($ip) : array
+    {
+        $ipIsValid = Validator::isValid($ip);
+
+        if (!$ipIsValid) {
+            $json = [
+                "ip" => $ip,
+                "type" => "Not valid",
+            ];
+            return [$json];
+        }
+
+        $cache = $this->di->get("cache");
+        $locationProvider = New Ipstack($cache);
+        $location = New Location($locationProvider, $ip);
+        $res = $location->getLocation();
+
+        $json = [
+            "ip" => $res["ip"],
+            "type" => $res["type"],
+            "city" => $res["city"],
+            "country" => $res["country"]
         ];
         return [$json];
     }

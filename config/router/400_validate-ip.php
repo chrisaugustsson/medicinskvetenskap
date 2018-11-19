@@ -9,5 +9,10 @@ return [
             "mount" => "ip",
             "handler" => "\Anax\IpValidator\IpValidatorController",
         ],
+        [
+            "info" => "Testing",
+            "mount" => "location",
+            "handler" => "\Anax\IpLocation\LocationController",
+        ]
     ]
 ];

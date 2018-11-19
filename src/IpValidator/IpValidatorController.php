@@ -24,8 +24,6 @@ class IpValidatorController implements ContainerInjectableInterface
         $title = "Validate IP";
 
         $page = $this->di->get("page");
-        $session = $this->di->get("session");
-
         $page->add("anax/ipvalidate/index");
 
         return $page->render([
@@ -45,7 +43,6 @@ class IpValidatorController implements ContainerInjectableInterface
         $validator = new Validator();
 
         $title = "Your IP-address";
-        $response = $this->di->get("response");
         $request = $this->di->get("request");
         $page = $this->di->get("page");
 

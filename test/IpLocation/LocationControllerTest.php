@@ -1,6 +1,6 @@
 <?php
 
-namespace Anax\IpValidator;
+namespace Anax\IpLocation;
 
 use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the FlatFileContentController.
  */
-class IpValidatorControllerTest extends TestCase
+class LocationControllerTest extends TestCase
 {
 
     // Create the di container.
@@ -32,9 +32,13 @@ class IpValidatorControllerTest extends TestCase
         $di = $this->di;
 
         // Setup the controller
-        $this->controller = new IpValidatorController();
+        $this->controller = new LocationController();
         $this->controller->setDI($this->di);
         //$this->controller->initialize();
+
+        //Clear cache
+        $cache = $di->get("cache");
+        $cache->delete("127.255.255.255");
     }
 
     /**
@@ -46,63 +50,50 @@ class IpValidatorControllerTest extends TestCase
         $res = $this->controller->indexActionGet();
         $body = $res->getBody();
 
-        $exp = "Validate IP";
+        $exp = "Position from IP";
         $this->assertContains($exp, $body);
     }
 
 
     /**
-     * Test the route "validate" with valid IPv6 address.
+     * Test the route "locate" with valid IP address.
      */
     public function testWithValidIpv6ValidateAction()
     {
         $request = $this->di->get("request");
-        $request->setGlobals([
-            "post" => [
-                "ipAddress" => "2001:db8:85a3:0:0:8a2e:370:7334"
-            ]
-        ]);
-        $res = $this->controller->validateActionPost();
+        $request->setGet("ip", "127.255.255.255");
+        $res = $this->controller->locateActionGet();
         $body = $res->getBody();
 
-        $exp = "This is a valid IPv6 address!";
+        $exp = "ipv4";
         $this->assertContains($exp, $body);
-    }
 
-
-    /**
-     * Test the route "validate" with valid IPv4 address.
-     */
-    public function testWithValidIpv4ValidateAction()
-    {
+        // Same request once more to fetch from cache instead
         $request = $this->di->get("request");
-        $request->setGlobals([
-            "post" => [
-                "ipAddress" => "127.255.255.255"
-            ]
-        ]);
-        $res = $this->controller->validateActionPost();
+        $request->setGet("ip", "127.255.255.255");
+        $res = $this->controller->locateActionGet();
         $body = $res->getBody();
 
-        $exp = "This is a valid IPv4 address!";
+        $exp = "ipv4";
         $this->assertContains($exp, $body);
+
+        //Clear cache when done
+        $cache = $this->di->get("cache");
+        $cache->delete("127.255.255.255");
     }
 
+
     /**
-     * Test the route "validate" with invalid IP address.
+     * Test the route "locate" with invalid IP address.
      */
     public function testWithInvalidIpValidateAction()
     {
         $request = $this->di->get("request");
-        $request->setGlobals([
-            "post" => [
-                "ipAddress" => "127.25a5.255.255"
-            ]
-        ]);
-        $res = $this->controller->validateActionPost();
+        $request->setGet("ip", "127.255.255.2525");
+        $res = $this->controller->locateActionGet();
         $body = $res->getBody();
 
-        $exp = "No valid IP address entered";
+        $exp = "Not a valid IP-address";
         $this->assertContains($exp, $body);
     }
 }

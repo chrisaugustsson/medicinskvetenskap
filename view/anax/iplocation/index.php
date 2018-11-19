@@ -14,13 +14,14 @@ namespace Anax\View;
 ?>
 <div class="section">
     <div class="content">
-    <h1>Validate a IP-address</h1>
-        <form action="ip/validate" method="post">
+        <h1>Find location based on IP-address</h1>
+        <hr>
+        <form action="location/locate">
             <div class="field">
-                <label class="label">Enter IP-address to validate</label>
-                <input type="text" class="input" name="ipAddress">
+                <label>Enter IP-address:</label>
+                <input class="input" type="text" name="ip" value="<?= $ip ?>">
             </div>
-            <button class="button">Validate</button>
+            <button class="button">Send</button>
         </form>
     </div>
 </div>

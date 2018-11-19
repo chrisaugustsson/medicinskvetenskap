@@ -38,9 +38,23 @@ class RestApiControllerTest extends TestCase
     }
 
 
-
     /**
      * Test the route "index".
+     */
+    public function testIndexAction()
+    {
+        $request = $this->di->get("request");
+
+        $res = $this->controller->indexActionGet();
+        $body = $res->getBody();
+
+        $exp = "API Documentation";
+        $this->assertContains($exp, $body);
+    }
+
+
+    /**
+     * Test  IpAction.
      */
     public function testIpAction()
     {
@@ -56,5 +70,43 @@ class RestApiControllerTest extends TestCase
 
         $exp = "2001:db8:85a3:0:0:8a2e:370:7334";
         $this->assertContains($exp, $ip);
+    }
+
+    /**
+     * Test ipLocationActionGet with valid IP.
+     */
+    public function testIpLocationActionGet()
+    {
+        $request = $this->di->get("request");
+
+        $res = $this->controller->ipLocationActionGet("127.255.255.255");
+
+        $ip = $res[0]["ip"];
+        $type = $res[0]["type"];
+
+        $exp = "127.255.255.255";
+        $this->assertContains($exp, $ip);
+
+        $exp = "ipv4";
+        $this->assertContains($exp, $type);
+    }
+
+    /**
+     * Test ipLocationActionGet with invalid IP.
+     */
+    public function testInvalidIpLocationActionGet()
+    {
+        $request = $this->di->get("request");
+
+        $res = $this->controller->ipLocationActionGet("127.255.255.2552");
+
+        $ip = $res[0]["ip"];
+        $type = $res[0]["type"];
+
+        $exp = "127.255.255.255";
+        $this->assertContains($exp, $ip);
+
+        $exp = "Not valid";
+        $this->assertContains($exp, $type);
     }
 }

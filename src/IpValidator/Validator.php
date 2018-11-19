@@ -13,4 +13,13 @@ class Validator
             return [$ip, "No valid IP address entered"];
         }
     }
+
+    public static function isValid($ip)
+    {
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            return true;
+        }
+
+        return false;
+    }
 }
