@@ -10,9 +10,14 @@ return [
             "handler" => "\Anax\IpValidator\IpValidatorController",
         ],
         [
-            "info" => "Testing",
+            "info" => "Location from IP-address",
             "mount" => "location",
             "handler" => "\Anax\IpLocation\LocationController",
+        ],
+        [
+            "info" => "Weather from IP-address",
+            "mount" => "weather",
+            "handler" => "\Anax\Weather\WeatherController",
         ]
     ]
 ];

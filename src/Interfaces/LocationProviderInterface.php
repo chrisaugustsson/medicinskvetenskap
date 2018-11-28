@@ -1,6 +1,6 @@
 <?php
 
-namespace Anax\IpLocation;
+namespace Anax\Interfaces;
 
 interface LocationProviderInterface
 {
@@ -13,4 +13,8 @@ interface LocationProviderInterface
     public function getCountry();
 
     public function getIp();
+
+    public function getLat();
+
+    public function getLong();
 }

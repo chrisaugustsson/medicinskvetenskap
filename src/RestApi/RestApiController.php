@@ -7,6 +7,8 @@ use Anax\Commons\ContainerInjectableTrait;
 use Anax\IpValidator\Validator;
 use Anax\IpLocation\Ipstack;
 use Anax\IpLocation\Location;
+use Anax\Curl\Curl;
+use Anax\Weather\DarkSky;
 
 
 /**
@@ -69,8 +71,10 @@ class RestApiController implements ContainerInjectableInterface
             return [$json];
         }
 
-        $cache = $this->di->get("cache");
-        $locationProvider = New Ipstack($cache);
+        $curl = $this->di->get("curl");
+        $cfg = $this->di->get("configuration");
+
+        $locationProvider = New Ipstack($curl, $cfg);
         $location = New Location($locationProvider, $ip);
         $res = $location->getLocation();
 
@@ -78,8 +82,70 @@ class RestApiController implements ContainerInjectableInterface
             "ip" => $res["ip"],
             "type" => $res["type"],
             "city" => $res["city"],
-            "country" => $res["country"]
+            "country" => $res["country"],
         ];
         return [$json];
+    }
+
+
+    /**
+     * Returns current weather forecast for a location
+     *
+     * @return object in json format
+     */
+    public function currentForecastActionGet($ip) : array
+    {
+        $di = $this->di;
+        $ipIsValid = Validator::isValid($ip);
+
+        if (!$ipIsValid) {
+            $json = [
+                "ip" => $ip,
+                "type" => "Not valid",
+            ];
+            return [$json];
+        }
+
+        $curl = $di->get("curl");
+        $cfg = $di->get("configuration");
+
+        $locationProvider = new IpStack($curl, $cfg);
+        $darkSky = new DarkSky($locationProvider, $curl, $cfg);
+        $darkSky->setLocation($ip);
+
+        $res = $darkSky->getForecast();
+
+        return [$res];
+    }
+
+
+    /**
+     * Returns 30 days historic weather forecast for a location
+     *
+     * @return object in json format
+     */
+    public function historyForecastActionGet($ip) : array
+    {
+        $di = $this->di;
+        $ipIsValid = Validator::isValid($ip);
+
+        if (!$ipIsValid) {
+            $json = [
+                "ip" => $ip,
+                "type" => "Not valid",
+            ];
+            return [$json];
+        }
+
+        $curl = $di->get("curl");
+        $cfg = $di->get("configuration");
+
+        $locationProvider = new IpStack($curl, $cfg);
+        $darkSky = new DarkSky($locationProvider, $curl, $cfg);
+        $darkSky->setLocation($ip);
+
+        $res = $darkSky->getOldCast();
+
+        return [$res];
     }
 }

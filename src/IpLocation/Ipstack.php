@@ -1,54 +1,44 @@
 <?php
 
 namespace Anax\IpLocation;
+use Anax\Curl\Curl;
+use Anax\Interfaces\LocationProviderInterface;
 
 
 class Ipstack implements LocationProviderInterface
 {
-    private $apiKey = "76d2dc7dd12afedf6fc8bf90e2a75e26";
+    private $apiKey;
     private $ip;
     private $type;
     private $city;
     private $country;
-    private $cache;
+    private $long;
+    private $lat;
+    private $curl;
 
-    public function __construct($cache)
+    public function __construct($curl, $cfg)
     {
-        $this->cache = $cache;
+        $this->curl = $curl;
+        $keys = $cfg->load("api_keys.php");
+        $this->apiKey = $keys["config"]["ipstack"];
     }
 
 
     public function setLocation(string $ip)
     {
-        $cache = $this->cache;
+        $curl = $this->curl;
         $withOutSpecial = str_replace(":", ".", $ip);
-        if ($cache->get($withOutSpecial)) {
-            $data =  $cache->get($withOutSpecial);
-            $this->ip = $data["ip"];
-            $this->type = $data["type"];
-            $this->city = $data["city"];
-            $this->country = $data["country"];
-        } else {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "http://api.ipstack.com/" . $ip . "?access_key=" . $this->apiKey);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-            $res = curl_exec($ch);
-            curl_close($ch);
+        $url = "http://api.ipstack.com/" . $ip . "?access_key=" . $this->apiKey;
+        $res;
 
-            $decoded = json_decode($res);
+        $res = $curl->get($url);
 
-            $this->ip = $decoded->ip;
-            $this->type = $decoded->type;
-            $this->city = $decoded->city;
-            $this->country = $decoded->country_name;
-
-            $cache->set($withOutSpecial, [
-                "ip" => $decoded->ip,
-                "type" => $decoded->type,
-                "city" => $decoded->city,
-                "country" => $decoded->country_name
-            ]);
-        }
+        $this->ip = $res->ip;
+        $this->type = $res->type;
+        $this->city = $res->city;
+        $this->country = $res->country_name;
+        $this->lat = $res->latitude;
+        $this->long = $res->longitude;
     }
 
     public function getCity()
@@ -69,5 +59,15 @@ class Ipstack implements LocationProviderInterface
     public function getIp()
     {
         return $this->ip;
+    }
+
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    public function getLong()
+    {
+        return $this->long;
     }
 }

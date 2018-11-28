@@ -1,7 +1,6 @@
 <?php
 
 namespace Anax\View;
-
 /**
  * Style chooser.
  */
@@ -17,5 +16,7 @@ namespace Anax\View;
         <p><i class="fas fa-check has-text-success"></i> <b>Type:</b> <?= $location["type"] ?></p>
         <p><i class="fas fa-check has-text-success"></i> <b>City:</b> <?= $location["city"] ?></p>
         <p><i class="fas fa-check has-text-success"></i> <b>Country:</b> <?= $location["country"] ?></p>
+        <p><i class="fas fa-check has-text-success"></i> <b>Latitude:</b> <?= $location["lat"] ?></p>
+        <p><i class="fas fa-check has-text-success"></i> <b>Longitude:</b> <?= $location["long"] ?></p>
     </div>
 </div>

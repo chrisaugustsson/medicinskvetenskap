@@ -109,4 +109,60 @@ class RestApiControllerTest extends TestCase
         $exp = "Not valid";
         $this->assertContains($exp, $type);
     }
+
+
+    /**
+     * Test the weather function
+     */
+    public function testWeather()
+    {
+        $request = $this->di->get("request");
+
+        $res = $this->controller->currentForecastActionGet("127.255.255.2552");
+
+        $ip = $res[0]["ip"];
+        $type = $res[0]["type"];
+
+        $exp = "127.255.255.255";
+        $this->assertContains($exp, $ip);
+
+        $exp = "Not valid";
+        $this->assertContains($exp, $type);
+
+
+        $res = $this->controller->currentForecastActionGet("127.255.255.255");
+        $exp = "Not valid";
+        $this->assertContains($exp, $type);
+    }
+
+    /**
+     * Test the weather function
+     */
+    public function testWeatherHistory()
+    {
+        $request = $this->di->get("request");
+
+        $res = $this->controller->historyForecastActionGet("127.255.255.2552");
+
+        $ip = $res[0]["ip"];
+        $type = $res[0]["type"];
+
+        $exp = "127.255.255.255";
+        $this->assertContains($exp, $ip);
+
+        $exp = "Not valid";
+        $this->assertContains($exp, $type);
+
+
+        $res = $this->controller->historyForecastActionGet("127.255.255.2552");
+        $exp = "Not valid";
+        $this->assertContains($exp, $type);
+
+        $res = $this->controller->historyForecastActionGet("92.232.60.151");
+
+        $country = $res[0]["country"];
+
+        $exp = "United Kingdom";
+        $this->assertContains($exp, $country);
+    }
 }

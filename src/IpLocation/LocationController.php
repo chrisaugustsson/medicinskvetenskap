@@ -5,6 +5,7 @@ namespace Anax\IpLocation;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Anax\IpValidator\Validator;
+use Anax\Curl\Curl;
 
 /**
  * Style chooser controller loads available stylesheets from a directory and
@@ -54,8 +55,11 @@ class LocationController implements ContainerInjectableInterface
                 "title" => "testing"
             ]);
         }
-        $cache = $this->di->get("cache");
-        $locationProvider = New Ipstack($cache);
+
+        $curl = $this->di->get("curl");
+        $cfg = $this->di->get("configuration");
+
+        $locationProvider = New Ipstack($curl, $cfg);
         $location = New Location($locationProvider, $ip);
         $res = $location->getLocation();
 

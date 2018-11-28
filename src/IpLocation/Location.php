@@ -1,5 +1,6 @@
 <?php
 namespace Anax\IpLocation;
+use Anax\Interfaces\LocationProviderInterface;
 
 class Location
 {
@@ -23,6 +24,8 @@ class Location
             "type" => $locationProvider->getType(),
             "city" => $locationProvider->getcity(),
             "country" => $locationProvider->getcountry(),
+            "lat" => $locationProvider->getLat(),
+            "long" => $locationProvider->getLong()
         ];
     }
 }

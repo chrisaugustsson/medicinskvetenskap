@@ -49,6 +49,11 @@ return [
             "title" => "IP-location",
         ],
         [
+            "text" => "Väder",
+            "url" => "weather",
+            "title" => "Weather",
+        ],
+        [
             "text" => "API",
             "url" => "api",
             "title" => "API",

@@ -38,7 +38,7 @@ class LocationControllerTest extends TestCase
 
         //Clear cache
         $cache = $di->get("cache");
-        $cache->delete("127.255.255.255");
+        $cache->delete("httpapiipstackcom127255255255accesskey76d2dc7dd12afedf6fc8bf90e2a75e26");
     }
 
     /**
