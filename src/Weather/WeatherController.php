@@ -3,7 +3,6 @@
 namespace Anax\Weather;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Anax\IpValidator\Validator;
 use Anax\Curl\Curl;
 use Anax\IpLocation\Ipstack;
 
@@ -38,28 +37,19 @@ class WeatherController implements ContainerInjectableInterface
         $request = $di->get("request");
         $response = $di->get("response");
         $page = $di->get("page");
+        $weather = $di->get("weather");
+        $location = $di->get("location");
 
         $ip = $request->getGet("ip");
         $history = $request->getGet("history") ?? null;
-
-        $ipIsValid = Validator::isValid($ip);
-
-        if (!$ipIsValid) {
-            return $response->redirect("weather?ip=false");
-        }
 
         if ($history) {
             return $response->redirect("weather/history?ip=" . $ip);
         }
 
-        $curl = $di->get("curl");
-        $cfg = $di->get("configuration");
+        $weather->setLocation($ip);
 
-        $locationProvider = new IpStack($curl, $cfg);
-        $darkSky = new DarkSky($locationProvider, $curl, $cfg);
-        $darkSky->setLocation($ip);
-
-        $res = $darkSky->getForecast();
+        $res = $weather->getForecast();
 
         if (isset($res["error"])) {
             return $response->redirect("weather?ip=false");
