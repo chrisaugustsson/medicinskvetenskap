@@ -14,10 +14,5 @@ return [
             "mount" => "location",
             "handler" => "\Anax\IpLocation\LocationController",
         ],
-        [
-            "info" => "Weather from IP-address",
-            "mount" => "weather",
-            "handler" => "\Anax\Weather\WeatherController",
-        ]
     ]
 ];

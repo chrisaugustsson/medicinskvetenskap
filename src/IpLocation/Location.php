@@ -1,6 +1,6 @@
 <?php
 namespace Anax\IpLocation;
-use Anax\Interfaces\LocationProviderInterface;
+use Anax\LocationProvider\LocationProviderInterface;
 
 class Location
 {

@@ -12,7 +12,7 @@ return [
                 $curl = $this->get("curl");
                 $cfg = $this->get("configuration");
 
-                $location = new \Anax\IpLocation\Ipstack($curl, $cfg);
+                $location = new \Anax\LocationProvider\Ipstack($curl, $cfg);
 
                 return $location;
             }

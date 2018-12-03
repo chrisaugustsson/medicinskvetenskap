@@ -24,9 +24,10 @@ class LocationController implements ContainerInjectableInterface
     public function indexActionGet() : object
     {
         $title = "Position from IP";
+        $di = $this->di;
 
-        $request = $this->di->get("request");
-        $page = $this->di->get("page");
+        $request = $di->get("request");
+        $page = $di->get("page");
 
         // Get users IP-address from SERVER
         $ip = $request->getServer("HTTP_X_FORWARDED_FOR");
@@ -42,8 +43,10 @@ class LocationController implements ContainerInjectableInterface
 
     public function locateActionGet() : object
     {
-        $page = $this->di->get("page");
-        $request = $this->di->get("request");
+        $di = $this->di;
+
+        $page = $di->get("page");
+        $request = $di->get("request");
         $ip = $request->getGet("ip");
 
         $ipIsValid = Validator::isValid($ip);
@@ -56,10 +59,7 @@ class LocationController implements ContainerInjectableInterface
             ]);
         }
 
-        $curl = $this->di->get("curl");
-        $cfg = $this->di->get("configuration");
-
-        $locationProvider = New Ipstack($curl, $cfg);
+        $locationProvider = $di->get("location");
         $location = New Location($locationProvider, $ip);
         $res = $location->getLocation();
 

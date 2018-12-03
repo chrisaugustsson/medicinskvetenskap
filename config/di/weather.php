@@ -12,7 +12,7 @@ return [
                 $curl = $this->get("curl");
                 $cfg = $this->get("configuration");
                 $locationProvider = $this->get("location");
-                $weather = new \Anax\Weather\DarkSky($locationProvider, $curl, $cfg);
+                $weather = new \Anax\WeatherService\DarkSky($locationProvider, $curl, $cfg);
 
                 return $weather;
             }
