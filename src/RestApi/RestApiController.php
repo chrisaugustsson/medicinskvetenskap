@@ -71,10 +71,7 @@ class RestApiController implements ContainerInjectableInterface
             return [$json];
         }
 
-        $curl = $this->di->get("curl");
-        $cfg = $this->di->get("configuration");
-
-        $locationProvider = New Ipstack($curl, $cfg);
+        $locationProvider = $this->di->get("location");
         $location = New Location($locationProvider, $ip);
         $res = $location->getLocation();
 
@@ -106,14 +103,10 @@ class RestApiController implements ContainerInjectableInterface
             return [$json];
         }
 
-        $curl = $di->get("curl");
-        $cfg = $di->get("configuration");
+        $weather = $di->get("weather");
+        $weather->setLocation($ip);
 
-        $locationProvider = new IpStack($curl, $cfg);
-        $darkSky = new DarkSky($locationProvider, $curl, $cfg);
-        $darkSky->setLocation($ip);
-
-        $res = $darkSky->getForecast();
+        $res = $weather->getForecast();
 
         return [$res];
     }
@@ -140,11 +133,10 @@ class RestApiController implements ContainerInjectableInterface
         $curl = $di->get("curl");
         $cfg = $di->get("configuration");
 
-        $locationProvider = new IpStack($curl, $cfg);
-        $darkSky = new DarkSky($locationProvider, $curl, $cfg);
-        $darkSky->setLocation($ip);
+        $weather = $di->get("weather");
+        $weather->setLocation($ip);
 
-        $res = $darkSky->getOldCast();
+        $res = $weather->getOldCast();
 
         return [$res];
     }
