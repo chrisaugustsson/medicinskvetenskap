@@ -1,0 +1,5 @@
+Create a CRUD example for Books for ramverk1 v2.
+
+Create a complete set of classes implementing a
+CRUD for Books using anax/htmlform with database
+using the Active Record design pattern.

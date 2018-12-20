@@ -54,6 +54,11 @@ return [
             "title" => "Weather",
         ],
         [
+            "text" => "Böcker",
+            "url" => "book",
+            "title" => "Böcker",
+        ],
+        [
             "text" => "API",
             "url" => "api",
             "title" => "API",

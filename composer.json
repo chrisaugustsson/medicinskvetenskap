@@ -16,7 +16,9 @@
     "require": {
         "anax/anax-ramverk1-me": "^1.0.0",
         "anax/anax-cli": "^1.1",
-        "chau/weather-service": "^1.0.0"
+        "chau/weather-service": "^1.0.0",
+        "anax/database-active-record": "^2.0",
+        "anax/htmlform": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"
