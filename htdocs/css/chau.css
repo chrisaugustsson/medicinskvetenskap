@@ -1,12 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 
+#form-element-Kommentera {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#form-element-Titel {
+    width: 100%;
+}
+
+select {
+    width: 50%;
+}
+
+
 .content {
     font-family: 'Nunito Sans', sans-serif;
 }
 
 h1 {
-    text-align: center;
     font-weight: 100 !important;
 }
 
@@ -14,10 +27,9 @@ h2 {
     font-weight: 100 !important;
 }
 
-.special-content {
-    margin-top: -250px;
-    min-height: 400px;
-    border-radius: 10px;
+.search-field {
+    width: 400px;
+    margin-left: 50px;
 }
 
 .hero-body .title {
@@ -25,27 +37,43 @@ h2 {
     font-family: 'Permanent Marker', cursive;
 }
 
-.parallax-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background-color: #333;
-    opacity: 0.6;
+input {
+    border-color: #dbdbdb;
+    color: #363636;
+    box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    height: 2.25em;
+    vertical-align: top;
 }
 
-.hero {
-    position: relative;
-    background-image: url("../img/city.jpg");
-    background-attachment: fixed;
-    background-position: 50% -300px;
-    background-size: cover !important;
+input:active {
+    box-shadow: 0 0 0 0.125em rgba(50,115,220,.25);
+}
+
+fieldset {
+    border: none;
+}
+
+.brand {
+    background-image: url("../img/mv.png");
     background-repeat: no-repeat;
-    min-height: 600px;
+    background-size: 300px;
+    background-position: center;
+    height: 70px;
+    width: 400px;
 }
 
+.menu-list {
+    position: sticky;
+    top: 100px;
+}
+
+.navbar {
+    width: 100%;
+    position: sticky;
+    top: 0;
+}
 
 .footer a {
     color: grey;
@@ -54,3 +82,58 @@ h2 {
 .footer a:hover {
     color: white;
 }
+
+.thread {
+    padding-bottom: 20px;
+}
+
+textarea {
+    padding: 1em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.5em;
+    height: 20em;
+    width: 100%;
+}
+
+.comment-score {
+    margin-right: 20px;
+    display: inline-flex;
+}
+
+.comment-score p {
+    margin-left: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+
+@media screen and (max-width: 1088px) {
+    .navbar-brand a {
+        text-align: center;
+        align-items: center;
+        margin: auto;
+    }
+
+    .navbar-menu {
+        display: flex;
+    }
+
+    .navbar-menu a {
+        display: inline;
+    }
+
+    .navbar-end, .navbar-start {
+        padding-bottom: 10px;
+        margin: auto;
+    }
+
+    .search-field {
+        padding-top: 10px;
+    }
+
+    .menu-list {
+        top: 200px;
+    }
+  }

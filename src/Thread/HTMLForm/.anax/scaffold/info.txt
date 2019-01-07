@@ -1,0 +1,6 @@
+Create a large form model for ramverk1 v2.
+
+Create a large form model to be used with
+an Anax installation matching the
+course ramverk1 v2 and using the module
+anax/htmlform.

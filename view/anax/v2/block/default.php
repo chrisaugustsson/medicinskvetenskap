@@ -44,12 +44,12 @@ $text = isset($text) ? $text : $content;
         renderView(__DIR__ . "/../link-list/default", [
             "links" => $links
         ]);
-    endif; ?>
+endif; ?>
 
     <?php if (isset($toc)) :
         renderView(__DIR__ . "/../toc-list/default", [
             "toc" => $toc
         ]);
-    endif; ?>
+endif; ?>
 
 </div>

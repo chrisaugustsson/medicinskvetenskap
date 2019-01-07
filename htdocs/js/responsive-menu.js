@@ -5,98 +5,116 @@
  */
 (function() {
     "use strict";
-
-    // Get the items needed for the menu to work.
-    var body = document.getElementsByTagName("body")[0];
-    var menuButton = document.getElementById("rm-menu-button");
-    var menu = document.getElementById("rm-menu");
-    var menuMax = document.querySelector(".rm-max #rm-menu");
-    var submenus = document.getElementsByClassName("rm-submenu-button");
-
-    // To support WordPress submenus
-    var submenuswp = document.getElementsByClassName("sub-menu");
+    console.log("We are live");
 
 
+    var tab = document.getElementById("tab");
+    var nextContainer;
 
-    /**
-     * Set the size of the max menu.
-     */
-    var setMaxMenuSize = function() {
-        if (menuMax === null) {
-            return;
-        }
+    tab.addEventListener("click", (target) => {
+        var active = document.getElementsByClassName("is-active");
+        var activeContainer = document.getElementById(active[0].childNodes[0].id + "Container");
 
-        menuMax.style.width  = window.innerWidth + "px";
-        menuMax.style.height = window.innerHeight + "px";
-    };
+        nextContainer = document.getElementById(target.target.id + "Container");
 
-    setMaxMenuSize();
+        active[0].classList.remove("is-active");
+        target.target.parentNode.classList.add("is-active");
 
-
-    /**
-     * Show submenu where ever a li item holds a submenu. Used as callback
-     * for li click events but only valid for the mobile version. The desktop
-     * version uses hover instead och click events.
-     */
-    var showSubmenu = function(event) {
-        //console.log("Show submenu");
-
-        if (this.parentNode.classList.contains("rm-desktop")) {
-            //console.log("Cancel show submenu");
-            return;
-        }
-
-        this.parentElement.classList.toggle("rm-submenu-open");
-        this.parentElement.querySelector("ul").classList.toggle("rm-show-submenu");
-
-        //event.preventDefault();
-        event.stopPropagation();
-    };
-
-
-
-    /**
-     * Add eventlisteners for each li holding a submenu
-     */
-    Array.prototype.filter.call(submenus, function(element) {
-        element.addEventListener("click", showSubmenu);
-        //console.log("found submenu");
+        activeContainer.classList.add("hide");
+        nextContainer.classList.remove("hide");
     });
 
-    // To support WordPress menus
-    Array.prototype.filter.call(submenuswp, function(element) {
-        // Add a clickable button to (max) menu
-        var button = document.createElement("a");
+    // // Get the items needed for the menu to work.
+    // var body = document.getElementsByTagName("body")[0];
+    // var menuButton = document.getElementById("rm-menu-button");
+    // var menu = document.getElementById("rm-menu");
+    // var menuMax = document.querySelector(".rm-max #rm-menu");
+    // var submenus = document.getElementsByClassName("rm-submenu-button");
 
-        button.setAttribute("href", "#");
-        button.setAttribute("class", "rm-submenu-button");
-        button.addEventListener("click", showSubmenu);
-        element.parentNode.insertBefore(button, element.parentNode.firstChild);
-
-        //element.parentNode.addEventListener("click", showSubmenu);
-        //console.log("found submenuwp");
-    });
+    // // To support WordPress submenus
+    // var submenuswp = document.getElementsByClassName("sub-menu");
 
 
 
-    /**
-     * Show the menu when clicking on the closed (mobile) menu button.
-     */
-    menuButton.addEventListener("click", function(event) {
-        // Toggle display of menu
-        menu.classList.toggle("rm-clicked");
-        menuButton.classList.toggle("rm-clicked");
-        body.classList.toggle("rm-modal");
+    // /**
+    //  * Set the size of the max menu.
+    //  */
+    // var setMaxMenuSize = function() {
+    //     if (menuMax === null) {
+    //         return;
+    //     }
 
-        // Toggle between desktop and mobile menu when no max menu enabled.
-        if (menuMax === null) {
-            menu.classList.toggle("rm-mobile");
-            menu.classList.toggle("rm-desktop");
-        }
+    //     menuMax.style.width  = window.innerWidth + "px";
+    //     menuMax.style.height = window.innerHeight + "px";
+    // };
 
-        event.preventDefault();
-        event.stopPropagation();
-    });
+    // setMaxMenuSize();
+
+
+    // /**
+    //  * Show submenu where ever a li item holds a submenu. Used as callback
+    //  * for li click events but only valid for the mobile version. The desktop
+    //  * version uses hover instead och click events.
+    //  */
+    // var showSubmenu = function(event) {
+    //     //console.log("Show submenu");
+
+    //     if (this.parentNode.classList.contains("rm-desktop")) {
+    //         //console.log("Cancel show submenu");
+    //         return;
+    //     }
+
+    //     this.parentElement.classList.toggle("rm-submenu-open");
+    //     this.parentElement.querySelector("ul").classList.toggle("rm-show-submenu");
+
+    //     //event.preventDefault();
+    //     event.stopPropagation();
+    // };
+
+
+
+    // /**
+    //  * Add eventlisteners for each li holding a submenu
+    //  */
+    // Array.prototype.filter.call(submenus, function(element) {
+    //     element.addEventListener("click", showSubmenu);
+    //     //console.log("found submenu");
+    // });
+
+    // // To support WordPress menus
+    // Array.prototype.filter.call(submenuswp, function(element) {
+    //     // Add a clickable button to (max) menu
+    //     var button = document.createElement("a");
+
+    //     button.setAttribute("href", "#");
+    //     button.setAttribute("class", "rm-submenu-button");
+    //     button.addEventListener("click", showSubmenu);
+    //     element.parentNode.insertBefore(button, element.parentNode.firstChild);
+
+    //     //element.parentNode.addEventListener("click", showSubmenu);
+    //     //console.log("found submenuwp");
+    // });
+
+
+
+    // /**
+    //  * Show the menu when clicking on the closed (mobile) menu button.
+    //  */
+    // menuButton.addEventListener("click", function(event) {
+    //     // Toggle display of menu
+    //     menu.classList.toggle("rm-clicked");
+    //     menuButton.classList.toggle("rm-clicked");
+    //     body.classList.toggle("rm-modal");
+
+    //     // Toggle between desktop and mobile menu when no max menu enabled.
+    //     if (menuMax === null) {
+    //         menu.classList.toggle("rm-mobile");
+    //         menu.classList.toggle("rm-desktop");
+    //     }
+
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    // });
 
 
 
@@ -134,7 +152,6 @@
 
     window.addEventListener("resize", function(/* event */) {
         //clearMenu(event);
-        setMaxMenuSize();
     });
     //document.addEventListener("click", clearMenu);
 })();
