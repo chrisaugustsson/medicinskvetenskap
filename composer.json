@@ -7,12 +7,6 @@
     "autoload": {
         "psr-4": {"Anax\\": "src/", "Chau\\": "src/"}
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/chrisaugustsson/weatherService"
-        }
-    ],
     "require": {
         "anax/anax-ramverk1-me": "^1.0.0",
         "anax/anax-cli": "^1.1",

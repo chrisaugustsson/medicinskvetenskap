@@ -72,7 +72,7 @@ ORDER BY $order DESC
 EOD;
         $this->db->connect();
         $res = $this->db->executeFetchAll($query, [$id]);
-
+        var_dump($res);
         return $res;
 
     }
