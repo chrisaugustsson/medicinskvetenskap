@@ -8,6 +8,7 @@
         "psr-4": {"Anax\\": "src/", "Chau\\": "src/"}
     },
     "require": {
+        "php": ">=7.2",
         "anax/anax-ramverk1-me": "^1.0.0",
         "anax/anax-cli": "^1.1",
         "anax/database-active-record": "^2.0",

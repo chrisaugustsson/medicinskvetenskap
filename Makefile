@@ -266,7 +266,7 @@ install-tools-php:
 	# curl -Lso $(PHPUNIT) https://phar.phpunit.de/phpunit-$(shell \
 	#  	php -r "echo version_compare(PHP_VERSION, '7.0', '<') \
 	# 		? '5' \
-	# 		: (version_compare(PHP_VERSION, '7.1', '>=') \
+	# 		: (version_compare(PHP_VERSION, '7.2', '>=') \
 	# 			? '7' \
 	# 			: '6'\
 	# 	);" \
