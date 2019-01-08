@@ -29,10 +29,6 @@ class Thread extends ActiveRecordModel
     public $score;
 
 
-    /**
-     * Gets the 5 latest posts
-     *
-     */
     public function findLatest()
     {
         $query = "SELECT title, owner, published, score, id as thisID, (SELECT count(id) FROM Answer WHERE threadID = thisID) AS answer FROM Thread ORDER BY published DESC LIMIT 5";
@@ -43,10 +39,7 @@ class Thread extends ActiveRecordModel
         return $res;
     }
 
-    /**
-     * Gets the 5 latest posts
-     *
-     */
+
     public function findEvery($limit1, $limit2, $order)
     {
         // $query = "SELECT title, owner, published, score, id as thisID, (SELECT count(id) FROM Answer WHERE threadID = thisID) AS answer FROM Thread ORDER BY published DESC LIMIT";
@@ -71,37 +64,5 @@ EOD;
         $res = $this->db->executeFetchAll($query, $params);
 
         return $res;
-    }
-
-    public function vote($id, $user, $upOrDown)
-    {
-        $query = "SELECT * FROM Vote WHERE thread = ? and user = ?";
-
-        $this->db->connect();
-        $res = $this->db->executeFetchAll($query, [$id, $user]);
-
-        if (sizeof($res) !== 0) {
-            return "Already made a vote";
-        }
-
-        $thread = new Thread();
-        $thread->setDb($this->db);
-
-        $thread->findById($id);
-
-        if ($upOrDown === "up") {
-            $thread->score += 1;
-        } else {
-            $thread->score -= 1;
-        }
-
-        $thread->save();
-
-        $vote = new Vote();
-        $vote->setDb($this->db);
-
-        $vote->user = $user;
-        $vote->thread = $id;
-        $vote->save();
     }
 }

@@ -22,7 +22,7 @@ class PublikController implements ContainerInjectableInterface
 
 
     /**
-     * Display the input field for IP address.
+     * Index page with the latest posts, most populur tags and most active users.
      *
      * @return object
      */
@@ -70,7 +70,7 @@ class PublikController implements ContainerInjectableInterface
 
 
     /**
-     * Display the input field for IP address.
+     * Display all threads.
      *
      * @return object
      */
@@ -123,7 +123,7 @@ class PublikController implements ContainerInjectableInterface
     }
 
     /**
-     * Display the input field for IP address.
+     * Display all tags.
      *
      * @return object
      */
@@ -147,13 +147,15 @@ class PublikController implements ContainerInjectableInterface
     }
 
     /**
-     * Display the input field for IP address.
+     * Display all threads that contains the tagName.
+     *
+     * @param string $tagName of the tag.
      *
      * @return object
      */
     public function tagActionGet($tagName) : object
     {
-        $title = "Taggar";
+        $title = "Trådar med taggen" . $tagName;
         $di = $this->di;
 
         $tag = new Tag();
@@ -199,6 +201,13 @@ class PublikController implements ContainerInjectableInterface
         ]);
     }
 
+    /**
+     * Displays a tag based on id.
+     *
+     * @param integer $id of the thread.
+     *
+     * @return object
+     */
     public function threadAction($id) : object
     {
         $di = $this->di;
@@ -223,8 +232,6 @@ class PublikController implements ContainerInjectableInterface
         // Init Answer object
         $answer = new Answer();
         $answer->setDb($di->get("dbqb"));
-
-        var_dump(get_class($answer));
 
         // Answer form
         $answerForm = new CreateAnswerForm($this->di, $id);
@@ -270,6 +277,25 @@ class PublikController implements ContainerInjectableInterface
         ]);
 
         $title = $thread->title;
+
+        return $page->render([
+            "title" => $title,
+        ]);
+    }
+
+    /**
+     * Simple about page
+     *
+     * @return object
+     */
+    public function omActionGet()
+    {
+        $di = $this->di;
+        $page = $di->get("page");
+        $title = "Om";
+
+        $page->add("anax/publik/om", [
+        ]);
 
         return $page->render([
             "title" => $title,

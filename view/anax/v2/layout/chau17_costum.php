@@ -10,11 +10,10 @@ namespace Anax\View;
 // echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 $pageTitle = $title;
-$title = ($title ?? "No title") . ($baseTitle ?? " | No base title defined");
 $path = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
 
 ?><!doctype html>
-<html>
+<html class="has-background-white-bis">
 <head>
     <meta charset="utf-8">
     <title><?= $title ?></title>
@@ -22,16 +21,13 @@ $path = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
     <script src='http://cloud.tinymce.com/5-testing/tinymce.min.js'></script>
+    <link rel="icon" href="<?= url("img/favicon.png") ?>">
 
     <?php if (isset($stylesheets)) : ?>
         <?php foreach ($stylesheets as $stylesheet) : ?>
             <link rel="stylesheet" type="text/css" href="<?= asset($stylesheet) ?>">
         <?php endforeach; ?>
     <?php endif; ?>
-
-<?php if (isset($favicon)) : ?>
-    <link rel="icon" href="<?= $favicon ?>">
-<?php endif; ?>
 
 </head>
 <body>
@@ -70,7 +66,7 @@ $path = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
                         <li><a class="<?=$path == "/taggar" ? "is-active" : ""?>" href=<?= url("taggar") ?>>Taggar</a></li>
                         <li><a class="<?=$path == "/user/users" ? "is-active" : ""?>" href=<?= url("user/users") ?>>Användare</a></li>
                         <hr>
-                        <li><a class="<?=$path == "/om" ? "is-active" : ""?>" href="om">Om Medisink Vetenskap</a></li>
+                        <li><a class="<?=$path == "/om" ? "is-active" : ""?>" href=<?= url("om") ?> >Om Medisink Vetenskap</a></li>
                     </ul>
                 </div>
                 <div class="section column is-8 has-text-dark">

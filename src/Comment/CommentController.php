@@ -19,9 +19,7 @@ class CommentController implements ContainerInjectableInterface
     use ContainerInjectableTrait;
 
     /**
-     * Description.
-     *
-     * @param datatype $variable Description
+     * Creates a new Comment on a answer.
      *
      * @throws Exception
      *

@@ -63,6 +63,7 @@ container ?= latest
 
 BIN     := .bin
 #PHPUNIT := $(BIN)/phpunit
+PHPMETRICS := vendor/bin/phpmetrics
 PHPUNIT := vendor/bin/phpunit
 PHPLOC 	:= $(BIN)/phploc
 PHPCS   := $(BIN)/phpcs
@@ -266,7 +267,7 @@ install-tools-php:
 	# curl -Lso $(PHPUNIT) https://phar.phpunit.de/phpunit-$(shell \
 	#  	php -r "echo version_compare(PHP_VERSION, '7.0', '<') \
 	# 		? '5' \
-	# 		: (version_compare(PHP_VERSION, '7.2', '>=') \
+	# 		: (version_compare(PHP_VERSION, '7.1', '>=') \
 	# 			? '7' \
 	# 			: '6'\
 	# 	);" \
@@ -344,11 +345,22 @@ phpdoc:
 
 
 
+# target: phpmetrics              - PHP metrics.
+.PHONY: phpmetrics
+phpmetrics: prepare
+	@$(call HELPTEXT,$@)
+	#- [ ! -f .phpmd.xml ] || [ ! -d src ] || $(PHPMD) . text .phpmd.xml | tee build/phpmd
+	install -d build/phpmetrics
+	$(PHPMETRICS) --report-html=build/phpmetrics src
+
+
+
 # target: behat                   - Run behat for feature tests.
 .PHONY: behat
 behat:
 	@$(call HELPTEXT,$@)
 	[ ! -d features ] || $(BEHAT)
+
 
 
 # ------------------------------------------------------------------------
@@ -406,8 +418,8 @@ bats:
 .PHONY: theme
 theme:
 	@$(call HELPTEXT,$@)
-	[ ! -d theme ] || $(MAKE) --directory=theme build
-	rsync -a theme/htdocs/css htdocs/
+	[ ! -d theme ] || $(MAKE) --directory=theme build install
+	#[ ! -d theme ] || ( cd theme && make build install )
 
 
 

@@ -28,38 +28,6 @@ class Answer extends ActiveRecordModel
     public $score;
     public $threadID;
 
-    public function vote($id, $user, $upOrDown)
-    {
-        $query = "SELECT * FROM Vote WHERE answer = ? and user = ?";
-
-        $this->db->connect();
-        $res = $this->db->executeFetchAll($query, [$id, $user]);
-
-        if (sizeof($res) !== 0) {
-            return "Already made a vote";
-        }
-
-        $answer = new Answer();
-        $answer->setDb($this->db);
-
-        $answer->findById($id);
-
-        if ($upOrDown === "up") {
-            $answer->score += 1;
-        } else {
-            $answer->score -= 1;
-        }
-
-        $answer->save();
-
-        $vote = new Vote();
-        $vote->setDb($this->db);
-
-        $vote->user = $user;
-        $vote->answer = $id;
-        $vote->save();
-    }
-
     /**
      * Finds all the answers that is connected to a certain thread.
      * Returns it in desirerd order.

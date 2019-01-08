@@ -45,43 +45,4 @@ class Comment extends ActiveRecordModel
         $res = $this->db->executeFetchAll($query, [$acronym]);
         return $res;
     }
-
-    /**
-     * Finds all comments made by a user together with the threadId.
-     *
-     * @var string $acronym of the user.
-     *
-     * @return array with the result.
-     */
-    public function vote($id, $user, $upOrDown)
-    {
-        $query = "SELECT * FROM Vote WHERE comment = ? and user = ?";
-
-        $this->db->connect();
-        $res = $this->db->executeFetchAll($query, [$id, $user]);
-
-        if (sizeof($res) !== 0) {
-            return "Already made a vote";
-        }
-
-        $comment = new Comment();
-        $comment->setDb($this->db);
-
-        $comment->findById($id);
-
-        if ($upOrDown === "up") {
-            $comment->score += 1;
-        } else {
-            $comment->score -= 1;
-        }
-
-        $comment->save();
-
-        $vote = new Vote();
-        $vote->setDb($this->db);
-
-        $vote->user = $user;
-        $vote->comment = $id;
-        $vote->save();
-    }
 }
