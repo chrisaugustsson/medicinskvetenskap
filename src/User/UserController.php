@@ -27,7 +27,6 @@ class UserController implements ContainerInjectableInterface
         $title = "Hem";
         $di = $this->di;
 
-        $request = $di->get("request");
         $page = $di->get("page");
 
         $user = new User();
@@ -55,7 +54,6 @@ class UserController implements ContainerInjectableInterface
     public function profilAction($acronym) : object
     {
         $session = $this->di->get("session");
-        $response = $this->di->get("response");
         $page = $this->di->get("page");
         $loggedIn = false;
 
@@ -77,10 +75,6 @@ class UserController implements ContainerInjectableInterface
         $comment = new Comment();
         $comment->setDb($this->di->get("dbqb"));
         $comments = $comment->findWithOrigin($acronym);
-
-        $vote = new Vote();
-        $vote->setDb($this->di->get("dbqb"));
-        $votes = $vote->findAll();
 
         $allTags = [];
 
@@ -129,7 +123,6 @@ class UserController implements ContainerInjectableInterface
         $session = $this->di->get("session");
         $response = $this->di->get("response");
         $page = $this->di->get("page");
-        $request = $this->di->get("request");
 
         if ($session->get("user") === null) {
             $response->redirect("user/login");

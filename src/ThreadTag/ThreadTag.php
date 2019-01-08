@@ -22,12 +22,12 @@ class ThreadTag extends ActiveRecordModel
      * @var integer $id primary key auto incremented.
      */
     public $id;
-    public $tag_id;
-    public $thread_id;
+    public $tagId;
+    public $threadId;
 
     public function findTags($threadId)
     {
-        $query = "SELECT tag_id, (SELECT name FROM Tag WHERE id = tag_id) as name FROM ThreadTag WHERE thread_id = ?";
+        $query = "SELECT tagId, (SELECT name FROM Tag WHERE id = tagId) as name FROM ThreadTag WHERE threadId = ?";
         $this->db->connect();
         $res = $this->db->executeFetchAll($query, [$threadId]);
 
@@ -36,7 +36,7 @@ class ThreadTag extends ActiveRecordModel
 
     public function findTagsWithParams($where, $params)
     {
-        $query = "SELECT tag_id, (SELECT name FROM Tag WHERE id = tag_id) as name FROM ThreadTag WHERE " . $where;
+        $query = "SELECT tagId, (SELECT name FROM Tag WHERE id = tagId) as name FROM ThreadTag WHERE " . $where;
         $this->db->connect();
         $res = $this->db->executeFetchAll($query, $params);
 

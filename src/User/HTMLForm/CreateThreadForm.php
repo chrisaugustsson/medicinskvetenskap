@@ -132,8 +132,8 @@ class CreateThreadForm extends FormModel
                 $threadTag = new ThreadTag();
                 $threadTag->setDb($this->di->get("dbqb"));
 
-                $threadTag->thread_id = $threadId;
-                $threadTag->tag_id = $currentTag;
+                $threadTag->threadId = $threadId;
+                $threadTag->tagId = $currentTag;
                 $threadTag->save();
             }
         }

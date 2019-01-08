@@ -12,7 +12,7 @@
  *  "dsn" => "sqlite:memory::",
  *
  */
-if ($_SERVER["SERVER_NAME"] === "www.student.bth.se") {
+if (isset($_SERVER["SERVER_NAME"]) && $_SERVER["SERVER_NAME"] === "www.student.bth.se") {
     return [
         "dsn"             => "mysql:host=blu-ray.student.bth.se;dbname=chau17",
         "username"        => "chau17",

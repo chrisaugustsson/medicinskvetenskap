@@ -122,27 +122,6 @@ class PublikController implements ContainerInjectableInterface
         ]);
     }
 
-
-    /**
-     * Display the input field for IP address.
-     *
-     * @return object
-     */
-    public function usersActionGet() : object
-    {
-        $title = "Användare";
-        $di = $this->di;
-        $page = $di->get("page");
-
-        $page->add("anax/publik/users", [
-        ]);
-
-        return $page->render([
-            "title" => $title,
-        ]);
-    }
-
-
     /**
      * Display the input field for IP address.
      *
@@ -183,7 +162,7 @@ class PublikController implements ContainerInjectableInterface
 
         $threadTag = new ThreadTag();
         $threadTag->setDb($di->get("dbqb"));
-        $threadIds = $threadTag->findAllWhere("tag_id = ?", $tag->id);
+        $threadIds = $threadTag->findAllWhere("tagId = ?", $tag->id);
 
         $thread = new Thread();
         $thread->setDb($di->get("dbqb"));
@@ -199,8 +178,8 @@ class PublikController implements ContainerInjectableInterface
         if (sizeof($threadIds) !== 0) {
             foreach ($threadIds as $threadId) {
                 $query .= "id = ? or ";
-                array_push($params, $threadId->thread_id);
-                $allTags[$threadId->thread_id] = $threadTag->findTags($threadId->thread_id);
+                array_push($params, $threadId->threadId);
+                $allTags[$threadId->threadId] = $threadTag->findTags($threadId->threadId);
             }
 
             $threads = $thread->findWithID(substr($query, 0, -4), $params);
@@ -258,7 +237,7 @@ class PublikController implements ContainerInjectableInterface
         $threadTag->setDb($di->get("dbqb"));
         $tag = new Tag();
         $tag->setDb($di->get("dbqb"));
-        $allThreadTags = $threadTag->findAllWhere("thread_id = ?", $id);
+        $allThreadTags = $threadTag->findAllWhere("threadId = ?", $id);
 
         // Creates the DB query
         $query = "";
@@ -269,7 +248,7 @@ class PublikController implements ContainerInjectableInterface
             // Go get the tag-names
             foreach ($allThreadTags as $threadTag) {
                 $query .= "id = ? or ";
-                array_push($tagsId, $threadTag->tag_id);
+                array_push($tagsId, $threadTag->tagId);
             }
             $tagsWithName = $tag->findAllWhere(substr($query, 0, -4), $tagsId);
         }

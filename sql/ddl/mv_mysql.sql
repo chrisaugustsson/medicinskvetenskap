@@ -105,11 +105,11 @@ CREATE TABLE Tag (
 --
 CREATE TABLE ThreadTag (
 	`id` INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	`tag_id` INTEGER,
-    `thread_id` INTEGER,
+	`tagId` INTEGER,
+    `threadId` INTEGER,
 
-    FOREIGN KEY (thread_id) REFERENCES Thread(id),
-    FOREIGN KEY (tag_id) REFERENCES Tag(id)
+    FOREIGN KEY (threadId) REFERENCES Thread(id),
+    FOREIGN KEY (tagId) REFERENCES Tag(id)
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 

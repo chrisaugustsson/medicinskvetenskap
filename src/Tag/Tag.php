@@ -31,7 +31,7 @@ class Tag extends ActiveRecordModel
     public function findWithCount($limit)
     {
         $query = <<<EOD
-SELECT id as tagId, name, description, ((SELECT count(id) FROM ThreadTag WHERE tag_id = tagId)) as numberOfThreads
+SELECT id as tagID, name, description, ((SELECT count(id) FROM ThreadTag WHERE tagId = tagID)) as numberOfThreads
 FROM Tag
 ORDER BY numberOfThreads DESC
 LIMIT $limit;
