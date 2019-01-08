@@ -6,8 +6,10 @@ namespace Anax\View;
     <div class="conatiner columns is-vcentered">
         <!-- VOTE ON THREAD -->
         <div class="column is-1 has-text-centered">
-            <form action="<?= url("vote/thread") ?>" method="POST">
+            <form action="<?= url("vote/vote") ?>" method="POST">
                 <input type="hidden" name="thread" value="<?= $thread->id ?>">
+                <input type="hidden" name="id" value="<?= $thread->id ?>">
+                <input type="hidden" name="type" value="thread">
                 <div class=" has-text-info">
                     <button style="border:none;background:none;" type="submit" name="vote-up" value="1">
                         <i type="submit" class="fas fa-3x fa-arrow-alt-circle-up has-text-link"></i>
@@ -52,9 +54,10 @@ namespace Anax\View;
                     <p><?= $comment->content ?></p>
                     <a href="<?= url("user/profil/" . $comment->owner) ?>"> - <?= $comment->owner ?></a> <p><?= $comment->published ?></p>
                     <p>
-                        <form action="<?= url("vote/comment") ?>" method="POST">
-                            <input type="hidden" name="comment" value="<?= $comment->id ?>">
+                        <form action="<?= url("vote/vote") ?>" method="POST">
+                            <input type="hidden" name="id" value="<?= $comment->id ?>">
                             <input type="hidden" name="thread" value="<?= $thread->id ?>">
+                            <input type="hidden" name="type" value="comment">
                             <span class=" has-text-info">
                                 <button style="border:none;background:none;" type="submit" name="vote-up" value="1">
                                     <i type="submit" class="fas fa-1x fa-arrow-up has-text-primary"></i>
@@ -100,9 +103,10 @@ namespace Anax\View;
                 <!-- VOTE ON ANSWER -->
                 <div class="columns">
                     <div class="column is-1 has-text-centered">
-                        <form action="<?= url("vote/answer") ?>" method="POST">
-                            <input type="hidden" name="answer" value="<?= $answer->id ?>">
+                        <form action="<?= url("vote/vote") ?>" method="POST">
+                            <input type="hidden" name="id" value="<?= $answer->id ?>">
                             <input type="hidden" name="thread" value="<?= $thread->id ?>">
+                            <input type="hidden" name="type" value="answer">
                             <div class=" has-text-info">
                                 <button style="border:none;background:none;" type="submit" name="vote-up" value="1">
                                     <i type="submit" class="fas fa-3x fa-arrow-alt-circle-up has-text-link"></i>
@@ -132,9 +136,10 @@ namespace Anax\View;
                                 <p><?= $comment->content ?></p>
                                 <a href="<?= url("user/profil/" . $comment->owner) ?>"> - <?= $comment->owner ?></a> <p><?= $comment->published ?></p>
                                 <p>
-                                    <form action="<?= url("vote/comment") ?>" method="POST">
-                                        <input type="hidden" name="comment" value="<?= $comment->id ?>">
+                                    <form action="<?= url("vote/vote") ?>" method="POST">
+                                        <input type="hidden" name="id" value="<?= $comment->id ?>">
                                         <input type="hidden" name="thread" value="<?= $thread->id ?>">
+                                        <input type="hidden" name="type" value="comment">
                                         <span class=" has-text-info">
                                             <button style="border:none;background:none;" type="submit" name="vote-up" value="1">
                                                 <i type="submit" class="fas fa-1x fa-arrow-up has-text-primary"></i>

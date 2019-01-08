@@ -29,6 +29,14 @@ class Comment extends ActiveRecordModel
     public $threadID;
     public $answerID;
 
+
+    /**
+     * Finds all comments made by a user together with the threadId.
+     *
+     * @var string $acronym of the user.
+     *
+     * @return array with the result.
+     */
     public function findWithOrigin($acronym)
     {
         $query = "select *, (select threadID from answer where id = answerID) as origin from Comment where owner = ?;";
@@ -38,6 +46,13 @@ class Comment extends ActiveRecordModel
         return $res;
     }
 
+    /**
+     * Finds all comments made by a user together with the threadId.
+     *
+     * @var string $acronym of the user.
+     *
+     * @return array with the result.
+     */
     public function vote($id, $user, $upOrDown)
     {
         $query = "SELECT * FROM Vote WHERE comment = ? and user = ?";

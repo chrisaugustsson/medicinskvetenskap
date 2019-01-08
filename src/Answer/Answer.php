@@ -61,8 +61,13 @@ class Answer extends ActiveRecordModel
     }
 
     /**
-     * Gets the 5 latest posts
+     * Finds all the answers that is connected to a certain thread.
+     * Returns it in desirerd order.
      *
+     * @var string $order as the order to sort the answers
+     * @var integer $id of the thread.
+     *
+     * @return array with the result.
      */
     public function findByOrder($order, $id)
     {
@@ -72,7 +77,7 @@ ORDER BY $order DESC
 EOD;
         $this->db->connect();
         $res = $this->db->executeFetchAll($query, [$id]);
-        var_dump($res);
+
         return $res;
 
     }

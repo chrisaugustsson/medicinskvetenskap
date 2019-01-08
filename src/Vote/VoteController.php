@@ -20,90 +20,47 @@ class VoteController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    public function threadActionPost() : object
+    public function voteActionPost() : object
     {
         $di = $this->di;
 
         $request = $di->get("request");
         $response = $di->get("response");
 
+        $voteType = $request->getPost("type");
+        $objectId = $request->getPost("id");
         $threadId = $request->getPost("thread");
+
         $voteUp = $request->getPost("vote-up");
         $voteDown = $request->getPost("vote-down");
-
-        $thread = new Thread();
-        $thread->setDb($this->di->get("dbqb"));
 
         // Check if user is logged in
         $userLoggedIn = $di->get("session")->has("user");
         $user = $di->get("session")->get("user");
 
+        $vote = new Vote();
+        $vote->setDb($di->get("dbqb"));
+
+        switch ($voteType) {
+            case 'comment':
+                $object = new Comment();
+                break;
+            case 'answer':
+                $object = new Answer();
+                break;
+            case 'thread':
+                $object = new Thread();
+                break;
+        }
+
+        $object->setDb($di->get("dbqb"));
+
         if ($voteUp !== null && $userLoggedIn) {
-            $thread->vote($threadId, $user, "up");
+            $vote->vote($objectId, $user, "up", $object, $voteType);
         }
 
         if ($voteDown !== null && $userLoggedIn) {
-            $thread->vote($threadId, $user, "down");
-        }
-
-        return $response->redirect("thread/" . $threadId);
-    }
-
-    public function answerActionPost() : object
-    {
-        $di = $this->di;
-
-        $request = $di->get("request");
-        $response = $di->get("response");
-
-        $answerId = $request->getPost("answer");
-        $threadId = $request->getPost("thread");
-        $voteUp = $request->getPost("vote-up");
-        $voteDown = $request->getPost("vote-down");
-
-        $answer = new Answer();
-        $answer->setDb($this->di->get("dbqb"));
-
-        // Check if user is logged in
-        $userLoggedIn = $di->get("session")->has("user");
-        $user = $di->get("session")->get("user");
-
-        if ($voteUp !== null && $userLoggedIn) {
-            $answer->vote($answerId, $user, "up");
-        }
-
-        if ($voteDown !== null && $userLoggedIn) {
-            $answer->vote($answerId, $user, "down");
-        }
-
-        return $response->redirect("thread/" . $threadId);
-    }
-
-    public function commentActionPost() : object
-    {
-        $di = $this->di;
-
-        $request = $di->get("request");
-        $response = $di->get("response");
-
-        $commentId = $request->getPost("comment");
-        $threadId = $request->getPost("thread");
-        $voteUp = $request->getPost("vote-up");
-        $voteDown = $request->getPost("vote-down");
-
-        $comment = new Comment();
-        $comment->setDb($this->di->get("dbqb"));
-
-        // Check if user is logged in
-        $userLoggedIn = $di->get("session")->has("user");
-        $user = $di->get("session")->get("user");
-
-        if ($voteUp !== null && $userLoggedIn) {
-            $comment->vote($commentId, $user, "up");
-        }
-
-        if ($voteDown !== null && $userLoggedIn) {
-            $comment->vote($commentId, $user, "down");
+            $vote->vote($objectId, $user, "down", $object, $voteType);
         }
 
         return $response->redirect("thread/" . $threadId);

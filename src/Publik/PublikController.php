@@ -224,6 +224,8 @@ class PublikController implements ContainerInjectableInterface
         $answer = new Answer();
         $answer->setDb($di->get("dbqb"));
 
+        var_dump(get_class($answer));
+
         // Answer form
         $answerForm = new CreateAnswerForm($this->di, $id);
         $answerForm->check();
