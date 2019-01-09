@@ -11,7 +11,7 @@
 --
 -- DROP DATABASE anaxdb;
 -- CREATE DATABASE IF NOT EXISTS anaxdb;
-USE anaxdb;
+USE chau17;
 
 
 
@@ -130,9 +130,16 @@ CREATE TABLE Vote (
 
 
 
-insert into tag (name) value ("oprtopedi");
-insert into tag (name) value ("kirurgi");
-insert into tag (name) value ("magproblem");
-insert into tag (name) value ("hjärnkirurgi");
-insert into tag (name) value ("cancer");
-insert into tag (name) value ("diabetes");
+insert into Tag (name, description) value ("ortoperdi", "Frågor rörande ortoperdi.");
+insert into Tag (name, description) value ("nutrition", "Frågor rörande mat och näring");
+insert into Tag (name, description) value ("medicin", "Frågor om medicinering.");
+insert into Tag (name, description) value ("diet", "Frågor om olika typer av dieter och dess effekter.");
+insert into Tag (name, description) value ("bieffekter", "Frågor om bieffekter från tex medicin.");
+insert into Tag (name, description) value ("blodgrupp", "Olika frågor om blodgrupper.");
+insert into Tag (name, description) value ("blodtryck", "Frågor gällande blodtryck.");
+insert into Tag (name, description) value ("graviditet", "Frågor om graviditet.");
+insert into Tag (name, description) value ("förlossning", "Frågor om förlossning.");
+insert into Tag (name, description) value ("magproblem", "Alla tänkbara frågor om magproblem.");
+insert into Tag (name, description) value ("hjärnkirurgi", "Frågor om hjärnkirurgi.");
+insert into Tag (name, description) value ("cancer", "Frågor om olika typer av cancer och behadlingar.");
+insert into Tag (name, description) value ("diabetes", "Frågor om diabetes.");

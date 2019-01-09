@@ -42,7 +42,6 @@ class PublikControllerTest extends TestCase
      */
     public function testIndexAction()
     {
-        $request = $this->di->get("request");
         $res = $this->controller->indexActionGet();
         $body = $res->getBody();
 
@@ -55,7 +54,6 @@ class PublikControllerTest extends TestCase
      */
     public function testTradarAction()
     {
-        $request = $this->di->get("request");
         $res = $this->controller->tradarActionGet();
         $body = $res->getBody();
 
@@ -68,7 +66,6 @@ class PublikControllerTest extends TestCase
      */
     public function testTaggarAction()
     {
-        $request = $this->di->get("request");
         $res = $this->controller->taggarActionGet();
         $body = $res->getBody();
 
@@ -81,7 +78,6 @@ class PublikControllerTest extends TestCase
      */
     public function testTagAction()
     {
-        $request = $this->di->get("request");
         $res = $this->controller->tagActionGet("ortopedi");
         $body = $res->getBody();
 
@@ -94,7 +90,6 @@ class PublikControllerTest extends TestCase
      */
     public function testThreadAction()
     {
-        $request = $this->di->get("request");
         $res = $this->controller->threadAction(2);
         $body = $res->getBody();
 

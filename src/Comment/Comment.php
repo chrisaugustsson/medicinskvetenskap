@@ -39,7 +39,7 @@ class Comment extends ActiveRecordModel
      */
     public function findWithOrigin($acronym)
     {
-        $query = "select *, (select threadID from answer where id = answerID) as origin from Comment where owner = ?;";
+        $query = "select *, (select threadID from Answer where id = answerID) as origin from Comment where owner = ?;";
 
         $this->db->connect();
         $res = $this->db->executeFetchAll($query, [$acronym]);

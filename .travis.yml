@@ -16,6 +16,11 @@ matrix:
         - php: nightly
         - php: hhvm
 
+services:
+    - mysql
+
+
+
 # addons:
 #     sonarcloud:
 #         organization: "canax"

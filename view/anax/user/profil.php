@@ -39,7 +39,7 @@ namespace Anax\View;
                 </div>
                 <div class="column container thread">
                     <div class="box is-size-6">
-                        <a href="thread/<?= $thread->thisID ?>"><h3><?= $thread->title ?></h3></a>
+                        <a href="<?= url("thread/" . $thread->thisID) ?>"><h3><?= $thread->title ?></h3></a>
                         <p>Skapad <?= $thread->published ?> </p>
                         <?php foreach ($tags[$thread->thisID] as $tag) : ?>
                             <a href="<?= url("tag/" . $tag->name) ?>"><span class="is-mobile is-link tag"><?= $tag->name ?></span></a>
