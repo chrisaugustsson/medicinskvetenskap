@@ -224,8 +224,6 @@ class PublikController implements ContainerInjectableInterface
         $thread->setDb($di->get("dbqb"));
         $thread->findWhere("id = ?", $id);
 
-        var_dump($thread->published);
-
         // Init Comment object
         $comment = new Comment();
         $comment->setDb($di->get("dbqb"));
