@@ -6,6 +6,8 @@ filter:
 
 build:
     nodes:
+        services:
+            mysql: mysql
         analysis:
             tests:
                 override:
@@ -13,6 +15,9 @@ build:
 
         tests-and-coverage:
             tests:
+                before:
+                    -
+                        command: "mysql -u root --password="" < test/travis.sql"
                 override:
                     -
                         command: "make phpunit"
