@@ -202,7 +202,7 @@ class PublikController implements ContainerInjectableInterface
     }
 
     /**
-     * Displays a tag based on id.
+     * Displays a thread based on id.
      *
      * @param integer $id of the thread.
      *
@@ -223,6 +223,8 @@ class PublikController implements ContainerInjectableInterface
         $thread = new Thread();
         $thread->setDb($di->get("dbqb"));
         $thread->findWhere("id = ?", $id);
+
+        var_dump($thread->published);
 
         // Init Comment object
         $comment = new Comment();
