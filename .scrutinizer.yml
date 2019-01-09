@@ -9,9 +9,9 @@ project_setup:
         - mysql -u root --password="" < test/travis.sql
 
 build:
+    services:
+        mysql: 5.7
     nodes:
-        services:
-            mysql: 5.7
         analysis:
             tests:
                 override:
