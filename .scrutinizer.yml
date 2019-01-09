@@ -4,13 +4,12 @@ imports:
 filter:
     excluded_paths: [vendor/*, test/*]
 
-project_setup:
-    before:
-        - mysql -u root --password="" < test/travis.sql
-
 build:
     services:
         mysql: 5.7
+    project_setup:
+        before:
+            - mysql -u root --password="" < test/travis.sql
     nodes:
         analysis:
             tests:
