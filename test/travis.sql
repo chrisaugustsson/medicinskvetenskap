@@ -4,7 +4,7 @@
 -- this must be done by hand, se commented rows on how to do it.
 --
 
-CREATE USER 'anax@localhost' INDENTIFIED BY 'anax';
+CREATE USER 'anax@localhost' IDENTIFIED BY 'anax';
 
 
 
