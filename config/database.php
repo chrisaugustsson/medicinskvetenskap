@@ -32,8 +32,8 @@ if (isset($_SERVER["SERVER_NAME"]) && $_SERVER["SERVER_NAME"] === "www.student.b
 
 return [
     "dsn"              => "mysql:host=127.0.0.1:3306;dbname=anaxdb;",
-    "username"         => "anax",
-    "password"         => "anax",
+    "username"         => "root",
+    "password"         => "",
     "driver_options"   => [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"],
     "fetch_mode"       => \PDO::FETCH_OBJ,
     "table_prefix"     => null,
