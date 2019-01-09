@@ -85,15 +85,15 @@ class PublikControllerTest extends TestCase
         $this->assertContains($exp, $body);
     }
 
-    // /**
-    //  * Test the route "thread".
-    //  */
-    // public function testThreadAction()
-    // {
-    //     $res = $this->controller->threadAction(2);
-    //     $body = $res->getBody();
+    /**
+     * Test the route "thread".
+     */
+    public function testThreadAction()
+    {
+        $res = $this->controller->threadAction(2);
+        $body = $res->getBody();
 
-    //     $exp = "section is-size-6 has-background-white";
-    //     $this->assertContains($exp, $body);
-    // }
+        $exp = "section is-size-6 has-background-white";
+        $this->assertContains($exp, $body);
+    }
 }
