@@ -11,7 +11,7 @@ project_setup:
 build:
     nodes:
         services:
-            mysql: mysql
+            mysql: 5.7
         analysis:
             tests:
                 override:
