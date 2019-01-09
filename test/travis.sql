@@ -4,21 +4,23 @@
 -- this must be done by hand, se commented rows on how to do it.
 --
 
+CREATE USER 'anax@localhost' INDENTIFIED BY 'anax';
+
 
 
 --
 -- Create a database for test
 --
 -- DROP DATABASE anaxdb;
-CREATE DATABASE IF NOT EXISTS travis_test;
-USE travis_test;
+CREATE DATABASE IF NOT EXISTS anaxdb;
+USE anaxdb;
 
 
 
 --
 -- Create a database user for the test database
 --
--- GRANT ALL ON anaxdb.* TO anax@localhost IDENTIFIED BY 'anax';
+GRANT ALL ON anaxdb.* TO anax@localhost IDENTIFIED BY 'anax';
 
 
 
