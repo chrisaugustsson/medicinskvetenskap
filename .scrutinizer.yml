@@ -4,6 +4,10 @@ imports:
 filter:
     excluded_paths: [vendor/*, test/*]
 
+project_setup:
+    before:
+        - mysql -u root --password="" < test/travis.sql
+
 build:
     nodes:
         services:
@@ -15,9 +19,6 @@ build:
 
         tests-and-coverage:
             tests:
-                before:
-                    -
-                        command: "mysql -u root --password="" < test/travis.sql"
                 override:
                     -
                         command: "make phpunit"
